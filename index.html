@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Natalie Schultz">
+    <title>"Bear, Ninja, Hunter Game"</title>
+</head>
+<body>
+  <p id="demo">Replace this content with the calculated sum</p>
+  <p id="computer">Replace this content with the calculated sum</p>
+  <p id="outcome"></p>
+  <div id="results">  </div>
+<script>
+ const words = ['Bear', 'Ninja', 'Hunter']
+ let index=0
+ let uname=""
+ let amessage=""
+ let player=""
+ let computer=""
+ let combination=0
+ let winner = ""
+ let playAgain = true;
+ let wins=0
+ let losses=0
+ let ties=0
+ let totalGames=0
+  uname = prompt('Welcome to Bear Hunter Ninja! Please enter your name to get started: ');
+  amessage = `Hi: ${uname} Let's Play!'`;
+  alert(amessage);
+  while (playAgain){
+        // 1. Prompt and process game
+      player = prompt('Who are you: Bear, Ninja, or Hunter? ');
+      if (player === null) {
+        alert("Game cancelled. Goodbye!");
+        break; // or set playAgain = false;
+      }
+      while (player==""||
+          !words.some(word => word.toLowerCase().includes(player.trim().toLowerCase()))
+        ) {
+          player = prompt("Invalid input. Try again: Bear, Ninja, or Hunter");
+        }
+          player = player.trim().toLowerCase();
+      //console.log(amessage + ' this is an example of a hardcoded text string concatenated after a variable.'); 
+      document.getElementById('demo').innerHTML = `${uname}, you picked ${player} !`
+      //computer random pick
+      
+        index = Math.floor (Math.random ()*words.length) // random 0 to 1 times the number of words rounded down
+      computer = words[index]
+
+      document.getElementById('computer').innerHTML = `The computer picked ${computer}!`
+      //console.log(`${variable}, Another text string ` + anotherVariable + '');
+      combination = -1 
+      if (player == "Bear".toLowerCase()){
+            if (computer.toLowerCase()  == "Bear".toLowerCase()){
+                combination = 1 
+            } else {
+                if (computer.toLowerCase() == "Ninja".toLowerCase()) {
+                    combination = 4
+                } else {
+                    combination = 8 // Hunter
+                }
+            }
+      } else {
+          if (player == "Ninja".toLowerCase()){
+             if (computer.toLowerCase()  == "Bear".toLowerCase()){
+                combination = 9
+            } else {
+                if (computer.toLowerCase() == "Ninja".toLowerCase()) {
+                    combination = 2
+                } else {
+                    combination = 5 // Hunter
+                }
+            }
+          } else { // player chose Hunter
+            if (computer.toLowerCase()  == "Bear".toLowerCase()){
+                combination = 6 
+            } else {
+                if (computer.toLowerCase() == "Ninja".toLowerCase()) {
+                    combination = 7
+                } else {
+                    combination = 3 // Hunter
+                }
+            }
+          }
+      }
+switch(combination) {
+  case 1:
+  case 2:
+  case 3:
+  winner = "Tie!!";
+  ties++
+       break;
+  case 4: 
+  case 5: 
+  case 6: 
+  winner = "You win!!";
+  wins++
+       break;
+  case 7:
+  case 8: 
+  case 9: 
+  winner = "Computer wins!!";
+  losses++
+       break;
+       default: winner = "error"
+  }
+  // 2. Display result
+     document.getElementById('outcome').innerHTML = winner;
+     totalGames++
+       // 3. Prompt to play again
+       const again = prompt("Do you want to play again? (yes or no)");
+  if (again === null || again.trim().toLowerCase() === "no") {
+    playAgain = false;
+  }
+  document.getElementById("results").innerHTML =
+  `<p>Total games played: ${totalGames}</p>
+   <p>Wins: ${wins}, Losses: ${losses}, Ties: ${ties}</p>`;
+
+  }
+</script>
+ 
+
+    <script>
+    //document.getElementById("demo").innerHTML = 3 + 8;
+    //alert(8 + 3);
+    </script>
+
+</body>
+</html>
